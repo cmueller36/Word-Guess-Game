@@ -1,6 +1,6 @@
 //declare the words for the computer to choose from 10 choices
 var computerChoices = ["car", "plane", "train", "cloud", "road"];
-var wordHint =["I have 4 wheels","I fly in the air","I ride on rails","I am in the blue sky","I am black"];
+var wordHint = ["I have 4 wheels", "I fly in the air", "I ride on rails", "I am in the blue sky", "I am black"];
 
 var blankANDguessed = [];
 
@@ -15,24 +15,25 @@ var hint = "";
 
 
 
-//computer chooses game and determines word length
-
+//computer chooses word
 var computerWord = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+//computer breaks the word into an array
 var arrComputerWord = computerWord.split("");
-console.log(computerWord);
-console.log(arrComputerWord);
 
 
 
-//function to populate ---- for words
+
+//function to begin game when hitting the Start button
 function startGame() {
+    //creates the number of _ _ _ based on the word length
     for (var i = 0; i < computerWord.length; i++) {
         blankANDguessed.push("_");
     };
-
+    //finds the word hint corresponding to the word selected by the computer
     var hint = wordHint[computerChoices.indexOf(computerWord)];
-    var html1 = 
-    "<p> Hint: "+ hint + "</p>";
+    //displays the hint for the user
+    var html1 =
+        "<p> Hint: " + hint + "</p>";
     document.querySelector("#userHint").innerHTML = html1;
 }
 
@@ -42,29 +43,35 @@ function startGame() {
 
 //begin game when user clicks button
 startbutton.onclick = function (event) {
+    //grabs the function from above
     startGame();
-    document.querySelector("#game").innerHTML = blankANDguessed; 
+    document.querySelector("#game").innerHTML = blankANDguessed;
 }
 
-document.onkeyup = function(event){
+document.onkeyup = function (event) {
     //turn user guess to lower case and store in variable
     var userKeyGuess = event.key.toLowerCase();
     //push the user guess into the variable userGuess
     userGuess.push(userKeyGuess);
     //display the user guesses
     var html =
-    "<p> You have chose: "+ userGuess + "</p>";
+        "<p> You have chosen: " + userGuess + "</p>";
     document.querySelector("#guesses").innerHTML = html;
+
+    //show the user how many lives they have left
+    var mylives =
+        "<p> Lives remaining: " + remainingGuess + "</p>";
+    document.querySelector("#userLives").innerHTML = mylives;
+
+    remainingGuess--;
+
     //check to see if word is computer word
-    for(var i =0; i < computerWord.length; i++){
-        if(computerWord[i] == userKeyGuess){
+    for (var i = 0; i < computerWord.length; i++) {
+        if (computerWord[i] == userKeyGuess) {
             var matchComputerWordIndex = computerWord.indexOf(userKeyGuess);
-            blankANDguessed.splice(matchComputerWordIndex,1,userKeyGuess);
+            blankANDguessed.splice(matchComputerWordIndex, 1, userKeyGuess);
             document.querySelector("#game").innerHTML = blankANDguessed;
         }
-    }
-    console.log(userKeyGuess);
-    console.log(blankANDguessed);
+    };
 
-  
 }

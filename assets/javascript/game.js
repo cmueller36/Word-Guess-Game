@@ -11,6 +11,7 @@ var userLoss = 0;
 var remainingGuess = 15;
 var userGuess = [];
 var hint = "";
+var userCorrect = 0;
 
 
 
@@ -38,13 +39,10 @@ function startGame() {
 }
 
 
-
-
-
 //begin game when user clicks button
 startbutton.onclick = function (event) {
     //grabs the function from above
-    startGame();
+    startGame()
     document.querySelector("#game").innerHTML = blankANDguessed;
 }
 
@@ -71,7 +69,19 @@ document.onkeyup = function (event) {
             var matchComputerWordIndex = computerWord.indexOf(userKeyGuess);
             blankANDguessed.splice(matchComputerWordIndex, 1, userKeyGuess);
             document.querySelector("#game").innerHTML = blankANDguessed;
+            userCorrect++;
         }
     };
+
+    if (remainingGuess === -1) {
+        alert("Your a looser!")
+    };
+
+    if (computerWord.length === userCorrect) {
+        setTimeout(alert("You won!",1000))
+    };
+
+
+
 
 }

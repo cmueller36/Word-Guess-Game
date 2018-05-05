@@ -20,6 +20,7 @@ var userCorrect = 0;
 var computerWord = computerChoices[Math.floor(Math.random() * computerChoices.length)];
 //computer breaks the word into an array
 var arrComputerWord = computerWord.split("");
+//hide restart button
 
 
 
@@ -43,8 +44,9 @@ function startGame() {
 startbutton.onclick = function (event) {
     //grabs the function from above
     startGame()
-    document.querySelector("#game").innerHTML = blankANDguessed;
-}
+    document.querySelector("#game").innerHTML = blankANDguessed.join(" ");
+
+};
 
 document.onkeyup = function (event) {
     //turn user guess to lower case and store in variable
@@ -68,18 +70,23 @@ document.onkeyup = function (event) {
         if (computerWord[i] == userKeyGuess) {
             var matchComputerWordIndex = computerWord.indexOf(userKeyGuess);
             blankANDguessed.splice(matchComputerWordIndex, 1, userKeyGuess);
-            document.querySelector("#game").innerHTML = blankANDguessed;
+            document.querySelector("#game").innerHTML = blankANDguessed.join(" ");
             userCorrect++;
         }
     };
 
     if (remainingGuess === -1) {
-        alert("Your a looser!")
+        alert("You're a loser!")
     };
 
+
+
+
     if (computerWord.length === userCorrect) {
-        setTimeout(alert("You won!",1000))
+        alert("You won! The answer was " + computerWord);
     };
+
+
 
 
 
